@@ -3,6 +3,7 @@ package jp.co.bbs.dto;
 public class PositionDto {
     private Integer id;
     private String name;
+
 	public Integer getId() {
 		return id;
 	}
@@ -15,4 +16,5 @@ public class PositionDto {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

@@ -1,6 +1,6 @@
 package jp.co.bbs.form;
 
-public class TestForm {
+public class UserForm {
     private int id;
     private String name;
 	private String loginId;

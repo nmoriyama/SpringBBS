@@ -15,7 +15,7 @@ import jp.co.bbs.dto.BranchDto;
 import jp.co.bbs.dto.PositionDto;
 import jp.co.bbs.dto.UserDto;
 import jp.co.bbs.dto.test.TestDto;
-import jp.co.bbs.form.TestForm;
+import jp.co.bbs.form.UserForm;
 import jp.co.bbs.service.UserService;
 
 @Controller
@@ -44,7 +44,7 @@ public class UserController {
     //ユーザー登録
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String insert(Model model) {
-        TestForm form = new TestForm();
+        UserForm form = new UserForm();
         List<BranchDto> branches = userService.getBranches();
         List<PositionDto> positions = userService.getPositions();
         model.addAttribute("testForm", form);
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String insert(@ModelAttribute TestForm form, Model model) {
+    public String insert(@ModelAttribute UserForm form, Model model) {
     	UserDto dto = new UserDto();
     	BeanUtils.copyProperties(form, dto);
         userService.insert(dto);
@@ -64,7 +64,7 @@ public class UserController {
     }
     
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@ModelAttribute TestForm form, Model model) {
+    public String delete(@ModelAttribute UserForm form, Model model) {
         userService.delete(form.getId());
         
         return "redirect:/management";

@@ -9,6 +9,8 @@
     <resultMap id="PostingResult" type="jp.co.bbs.entity.Posting">
         <result column="body" property="body" />
         <result column="category" property="category" />
+        <result column="account" property="account" />
+        <result column="subject" property="subject" />
     </resultMap>
     <select id="getTest" resultMap="TestResult" parameterType="int">
         select id, name
@@ -39,5 +41,9 @@
 	
 	<select id="postings" resultMap="PostingResult">
 		SELECT * FROM UserPostings ;
+	</select>
+	
+	<select id="comments" resultMap="PostingResult">
+		SELECT * FROM UserComments ;
 	</select>
 </mapper>

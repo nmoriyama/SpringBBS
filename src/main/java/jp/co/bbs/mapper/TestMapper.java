@@ -2,6 +2,7 @@ package jp.co.bbs.mapper;
 import java.util.List;
 
 import jp.co.bbs.dto.BranchDto;
+import jp.co.bbs.dto.CommentDto;
 import jp.co.bbs.dto.PositionDto;
 import jp.co.bbs.dto.PostingDto;
 import jp.co.bbs.dto.UserDto;
@@ -15,4 +16,5 @@ public interface TestMapper {
 	List<PositionDto> position();
 	void delete(int id);
 	List<PostingDto> postings();
+	List<CommentDto> comments();
 }

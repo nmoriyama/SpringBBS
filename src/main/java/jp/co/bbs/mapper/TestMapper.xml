@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.bbs.mapper.TestMapper">
+    <resultMap id="TestResult" type="jp.co.bbs.entity.Test">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+    </resultMap>
+    <resultMap id="PostingResult" type="jp.co.bbs.entity.Posting">
+        <result column="body" property="body" />
+        <result column="category" property="category" />
+    </resultMap>
+    <select id="getTest" resultMap="TestResult" parameterType="int">
+        select id, name
+        from test
+        where id = #{id}
+    </select>
+    
+    <select id="getUserAll" resultMap="TestResult">
+		SELECT * FROM management ;
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO users (login_id,password, account, branch_id, position_id, status) 
+		 VALUES (#{loginId}, #{password}, #{account}, #{branchId}, #{positionId}, 1) ;
+	</insert>
+	
+	<select id="branch" resultMap="TestResult">
+		SELECT * FROM branches ;
+	</select>
+	
+	<select id="position" resultMap="TestResult">
+		SELECT * FROM positions ;
+	</select>
+	
+	<select id="delete" resultMap="TestResult">
+		DELETE FROM users WHERE id = #{id} ;
+	</select>
+	
+	<select id="postings" resultMap="PostingResult">
+		SELECT * FROM UserPostings ;
+	</select>
+</mapper>

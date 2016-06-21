@@ -1,9 +1,6 @@
-package jp.co.bbs.dto;
-
+package jp.co.bbs.entity;
 import java.util.Date;
-
-public class CommentDto {
-    
+public class Comment {
 	private Integer postingId;
 	private String body;
 	private Date date;

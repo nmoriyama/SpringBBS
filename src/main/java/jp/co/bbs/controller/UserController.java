@@ -24,13 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/test/{id}", method = RequestMethod.GET)
-    public String test(Model model, @PathVariable int id) {
-        TestDto test = userService.getTest(id);
-        model.addAttribute("message", "MyBatisのサンプルです");
-        model.addAttribute("test", test);
-        return "test";
-    }
+
     
     //ユーザー管理
     @RequestMapping(value = "/management", method = RequestMethod.GET)
@@ -63,10 +57,32 @@ public class UserController {
         return "redirect:/management";
     }
     
+    //ユーザー削除機能
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@ModelAttribute UserForm form, Model model) {
         userService.delete(form.getId());
         
+        return "redirect:/management";
+    }
+
+    //ユーザー編集
+    @RequestMapping(value = "/management/setting/{id}", method = RequestMethod.GET)
+    public String testUpdate(Model model, @PathVariable int id) {
+    	UserDto user = UserService.getUpdateUser(id);
+        model.addAttribute("message", "ユーザー編集");
+        model.addAttribute("user", user);
+        UserForm form = new UserForm();
+
+        model.addAttribute("testForm", form);
+        return "setting";
+    }
+
+    @RequestMapping(value = "/management/setting/{id}", method = RequestMethod.POST)
+    public String testUpdate(Model model, @ModelAttribute TestForm form) {
+        TestDto dto = new TestDto();
+        BeanUtils.copyProperties(form, dto);
+        int count = testService.updateTest(dto);
+        Logger.getLogger(TestController.class).log(Level.INFO, "更新件数は" + count + "件です。");
         return "redirect:/management";
     }
 }

@@ -13,4 +13,8 @@
 		INSERT INTO postings (subject, body, category, record_date, user_id)
 		 VALUES (#{subject}, #{body}, #{category}, CURRENT_TIMESTAMP, 2) ;
 	</insert>
+	
+	<select id="postings" resultMap="PostingResult">
+		SELECT * FROM UserPostings ;
+	</select>
 </mapper>

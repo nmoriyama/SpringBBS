@@ -7,18 +7,22 @@ import org.springframework.stereotype.Service;
 
 import jp.co.bbs.dto.CommentDto;
 import jp.co.bbs.dto.PostingDto;
-import jp.co.bbs.mapper.TestMapper;
+import jp.co.bbs.mapper.CommentMapper;
+import jp.co.bbs.mapper.PostingMapper;
 @Service
 public class HomeService {
 	@Autowired
-    private TestMapper testMapper;
+    private PostingMapper postingMapper;
+	@Autowired
+    private CommentMapper commentMapper;
+	
     public List<PostingDto> getPostings() {
-    	List<PostingDto> PostingList = testMapper.postings();
+    	List<PostingDto> PostingList = postingMapper.postings();
     	return  PostingList;
    }
     
     public List<CommentDto> getComments() {
-    	List<CommentDto> CommentList = testMapper.comments();
+    	List<CommentDto> CommentList = commentMapper.comments();
     	return  CommentList;
    }
 }

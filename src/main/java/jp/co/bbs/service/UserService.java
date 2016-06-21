@@ -11,29 +11,24 @@ import jp.co.bbs.dto.BranchDto;
 import jp.co.bbs.dto.PositionDto;
 import jp.co.bbs.dto.UserDto;
 import jp.co.bbs.dto.test.TestDto;
-import jp.co.bbs.entity.Test;
-import jp.co.bbs.mapper.TestMapper;
+import jp.co.bbs.entity.User;
+import jp.co.bbs.mapper.UserMapper;
 
 @Service
 public class UserService {    
 	@Autowired
-    private TestMapper testMapper;
+    private UserMapper userMapper;
 
-    public TestDto getTest(Integer id) {
-        TestDto dto = new TestDto();
-        Test entity = testMapper.getTest(id);
-        BeanUtils.copyProperties(entity, dto);
-        return dto;
-    }
+
     public List<TestDto> getTestAll() {
-        List<Test> testList = testMapper.getUserAll();
+        List<User> testList = userMapper.getUserAll();
         List<TestDto> resultList = convertToDto(testList);
         return resultList;
     }
 
-    private List<TestDto> convertToDto(List<Test> testList) {
+    private List<TestDto> convertToDto(List<User> testList) {
         List<TestDto> resultList = new LinkedList<TestDto>();
-        for (Test entity : testList) {
+        for (User entity : testList) {
             TestDto dto = new TestDto();
             BeanUtils.copyProperties(entity, dto);
             resultList.add(dto);
@@ -42,20 +37,20 @@ public class UserService {
     }
     
     public void insert(UserDto dto) {
-        testMapper.insert(dto);
+        userMapper.insert(dto);
     }
     
     public List<BranchDto> getBranches() {
-    	 List<BranchDto> branchList = testMapper.branch();
+    	 List<BranchDto> branchList = userMapper.branch();
     	 return  branchList;
     }
     
     public List<PositionDto> getPositions() {
-    	List<PositionDto> positionList = testMapper.position();
+    	List<PositionDto> positionList = userMapper.position();
     	return  positionList;
    }
     
     public void delete(int id) {
-        testMapper.delete(id);
+        userMapper.delete(id);
     }
 }

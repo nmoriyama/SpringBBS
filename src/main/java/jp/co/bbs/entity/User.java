@@ -1,6 +1,6 @@
 package jp.co.bbs.entity;
 
-public class Test {
+public class User {
     private Integer id;
     private String name;
     private String login_id;

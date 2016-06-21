@@ -28,11 +28,9 @@
 			<td><c:out value = "${ user.branchName }" /></td>
 			<td><c:out value = "${ user.positionName }" /></td>
 			
-			<td>
-				<form action = "setting" method = "get"> 
-					<input type = "hidden" name = "id" value = "${user.id}">
-					<p><input  type = "submit" value = "編集"></p>
-				</form>
+			<td><a href="${pageContext.request.contextPath}/management/setting/${user.id}/">
+					<input  type = "submit" value = "編集"></a>
+
 			</td>
 			
 			<td><c:if test = "${ user.id != loginUser.id }">

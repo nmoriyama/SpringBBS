@@ -32,15 +32,6 @@
 					<br>
 				</c:forEach>
 			</div>
-			<form action = "deletePosting" method = "post">
-				<input type = "hidden" name = "id" value = "${ posting.id }">
-				<c:if test = "${ loginUser.branchId != 1 && loginUser.positionId == 3 && loginUser.branchId == posting.branchId }">
-					<input type = "submit" value = "削除">
-				</c:if>
-				<c:if test = "${ loginUser.positionId == 2 }">
-					<input type = "submit" value = "削除">
-				</c:if>
-			</form>
 		</div>
 		<br>
 		
@@ -57,15 +48,7 @@
 								</div>
 							</c:forEach>
 						</div>
-						<form action = "deleteComment" method = "post">
-							<input type = "hidden" name = "id" value = "${ comment.id }">
-							<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
-								<input type = "submit" value = "削除">
-							</c:if>
-							<c:if test = "${ loginUser.positionId == 2 }">
-								<input type = "submit" value = "削除">
-							</c:if>
-						</form><br>
+
 					</c:when>
 				</c:choose>
 			</c:forEach>

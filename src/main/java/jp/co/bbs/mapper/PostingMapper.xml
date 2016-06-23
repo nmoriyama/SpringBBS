@@ -6,12 +6,12 @@
         <result column="body" property="body" />
         <result column="category" property="category" />
         <result column="account" property="account" />
-        <result column="subject" property="subject" />
+
     </resultMap>
 
 	<insert id="insert">
 		INSERT INTO postings (subject, body, category, record_date, user_id)
-		 VALUES (#{subject}, #{body}, #{category}, CURRENT_TIMESTAMP, 2) ;
+		 VALUES (#{subject}, #{body}, #{category}, CURRENT_TIMESTAMP, #{userId}) ;
 	</insert>
 	
 	<select id="postings" resultMap="PostingResult">

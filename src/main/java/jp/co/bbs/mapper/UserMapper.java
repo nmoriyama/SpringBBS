@@ -7,12 +7,14 @@ import jp.co.bbs.dto.UserDto;
 import jp.co.bbs.entity.User;
 
 public interface UserMapper {
-	User getTest(int id);
+	User login(UserDto dto);
 	List<User> getUserAll();
 	void insert(UserDto dto);
 	List<BranchDto> branch();
 	List<PositionDto> position();
 	void delete(int id);
-
+	User getUpdateUser(int id);
+	void update(UserDto dto);
 	
+	void status(UserDto dto);
 }

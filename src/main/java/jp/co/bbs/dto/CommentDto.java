@@ -8,6 +8,7 @@ public class CommentDto {
 	private String body;
 	private Date date;
 	private Integer userId;
+	private String account;
 	public Integer getPostingId() {
 		return postingId;
 	}
@@ -31,6 +32,12 @@ public class CommentDto {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

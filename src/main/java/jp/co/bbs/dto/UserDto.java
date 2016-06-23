@@ -3,11 +3,14 @@ package jp.co.bbs.dto;
 public class UserDto {
 	private Integer id;
 	private String loginId;
+	private String login_id;
 	private String password;
 	private String account;
 	private Integer branchId;
 	private Integer positionId;
 	private String status;
+	private String branchName;
+	private String positionName;
 	public Integer getId() {
 		return id;
 	}
@@ -32,6 +35,8 @@ public class UserDto {
 	public void setAccount(String account) {
 		this.account = account;
 	}
+
+
 	public Integer getBranchId() {
 		return branchId;
 	}
@@ -44,10 +49,29 @@ public class UserDto {
 	public void setPositionId(Integer positionId) {
 		this.positionId = positionId;
 	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getPositionName() {
+		return positionName;
+	}
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+	public String getLogin_id() {
+		return login_id;
+	}
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 }

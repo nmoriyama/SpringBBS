@@ -7,12 +7,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>投稿</title>
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
- <h1>${message}</h1>
+<div class = posting-area>
+	<div class = messages >
+		<c:forEach items = "${ messages }" var = "message">
+			<c:out value = "${ message }" /><br>
+		</c:forEach>
+	</div>
  <form:form modelAttribute="PostingForm"  method="post"> 
- 
+ <input type = "hidden" name = "userId" value = "${ loginUser.id }">
  <p><label for = "subject">件名(50文字以下)</label>
 </p><input name = "subject" value = "${ subject }" /><br>
 	<br>
@@ -31,5 +37,8 @@
 		<input type = "submit" value = "投稿">
 	</p>
  </form:form>
+ <a href = "home">戻る</a>
+ </div>
 </body>
+
 </html>

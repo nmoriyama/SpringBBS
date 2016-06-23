@@ -6,11 +6,18 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Welcome</title>
+<title>ユーザー登録</title>
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
-    <h1>${message}</h1>
-    <form:form modelAttribute="testForm">
+<div class=signup-area>
+	<div class = messages >
+		<c:forEach items = "${ messages }" var = "message">
+			<c:out value = "${ message }" /><br>
+		</c:forEach>
+	</div>
+
+    <form:form modelAttribute="userForm">
         <p><label for = "loginId">ログインID(6文字以上20文字以下)<br></label>
 		<input name =  "loginId" /> <br> </p>
 		
@@ -25,20 +32,21 @@
 
 
     
-	<form:select path = "branchId">
-		<c:forEach items = "${ branches }" var = "branch">
-			<option value = "${ branch.id }" >
-			<c:out value = "${ branch.name }" /></option>
-		</c:forEach>
-	</form:select>
-	
-	<select name = "positionId">
-		<c:forEach items = "${ positions }" var = "position">
-			<option value = "${ position.id }" >
-			<c:out value = "${ position.name }" /></option>
-		</c:forEach>
-	</select>
+		<p>支店<br><select name = "branchId">
+			<c:forEach items = "${ branches }" var = "branch">
+				<option value = "${ branch.id }" >
+				<c:out value = "${ branch.name }" /></option>
+			</c:forEach>
+		</select></p>
+		<p>役職<br><select name = "positionId">
+			<c:forEach items = "${ positions }" var = "position">
+				<option value = "${ position.id }" >
+				<c:out value = "${ position.name }" /></option>
+			</c:forEach>
+		</select></p>
 	<input type="submit">
 	</form:form>
+	    <a href = "management">戻る</a>
+	    </div>
 </body>
 </html>

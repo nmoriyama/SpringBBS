@@ -6,4 +6,5 @@ import jp.co.bbs.dto.CommentDto;
 
 public interface CommentMapper {
 	List<CommentDto> comments();
+	void comment(CommentDto dto);
 }

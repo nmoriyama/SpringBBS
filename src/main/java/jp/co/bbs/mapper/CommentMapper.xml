@@ -3,10 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.bbs.mapper.CommentMapper">
     <resultMap id="CommentResult" type="jp.co.bbs.entity.Comment">
-
+        <result column="posting_id" property="postingId" />
+        <result column="user_id" property="userId" />
     </resultMap>
 	
 	<select id="comments" resultMap="CommentResult">
 		SELECT * FROM UserComments ;
 	</select>
+	
+	<insert id="comment">
+		INSERT INTO comments (posting_id, body, record_date, user_id) VALUES (#{postingId}, #{body}, CURRENT_TIMESTAMP, #{userId}) ;
+	</insert>
 </mapper>

@@ -8,6 +8,8 @@ public class PostingDto {
     private String account;
     private String subject;
     private String date;
+    private String postingId;
+    private Integer userId;
 	public String getBody() {
 		return body;
 	}
@@ -43,5 +45,17 @@ public class PostingDto {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getPostingId() {
+		return postingId;
+	}
+	public void setPostingId(String postingId) {
+		this.postingId = postingId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 }

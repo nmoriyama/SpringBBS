@@ -12,6 +12,7 @@ import jp.co.bbs.dto.CommentDto;
 import jp.co.bbs.dto.PostingDto;
 import jp.co.bbs.service.HomeService;
 @Controller
+
 public class HomeController {
 	 @Autowired
 	    private HomeService homeService;
@@ -24,7 +25,7 @@ public class HomeController {
     	List<CommentDto> comments = homeService.getComments();
     	model.addAttribute("postings", postings);
     	model.addAttribute("comments", comments);
-        model.addAttribute("message", "ログイン中");
+      //  model.addAttribute("message", "ログイン中");
         return "home";
     }
 }

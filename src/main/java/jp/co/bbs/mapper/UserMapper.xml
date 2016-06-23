@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.bbs.mapper.UserMapper">
-    <resultMap id="TestResult" type="jp.co.bbs.entity.User">
-        <result column="id" property="id" />
-        <result column="name" property="name" />
+    <resultMap id="UserResult" type="jp.co.bbs.entity.User">
+        <result column="login_id" property="loginId" />
+        <result column="position_id" property="positionId" />
+        <result column="branch_id" property="branchId" />
     </resultMap>
     <resultMap id="PostingResult" type="jp.co.bbs.entity.Posting">
         <result column="body" property="body" />
@@ -12,25 +13,35 @@
         <result column="account" property="account" />
         <result column="subject" property="subject" />
     </resultMap>
+    <resultMap id="PositionResult" type="jp.co.bbs.entity.Positions">
+            <result column="id" property="id" />
+        <result column="name" property="name" />
+    </resultMap>
+	<resultMap id="BranchResult" type="jp.co.bbs.entity.Branches">
+	        <result column="id" property="id" />
+        <result column="name" property="name" />
+    </resultMap>
     
-    <select id="getUserAll" resultMap="TestResult">
+    
+    
+    <select id="getUserAll" resultMap="UserResult">
 		SELECT * FROM management ;
 	</select>
 	
 	<insert id="insert">
 		INSERT INTO users (login_id,password, account, branch_id, position_id, status) 
-		 VALUES (#{loginId}, #{password}, #{account}, #{branchId}, #{positionId}, 1) ;
+		 VALUES (#{loginId}, #{password}, #{account}, #{branchId}, #{positionId}, 2) ;
 	</insert>
 	
-	<select id="branch" resultMap="TestResult">
+	<select id="branch" resultMap="BranchResult">
 		SELECT * FROM branches ;
 	</select>
 	
-	<select id="position" resultMap="TestResult">
+	<select id="position" resultMap="PositionResult">
 		SELECT * FROM positions ;
 	</select>
 	
-	<select id="delete" resultMap="TestResult">
+	<select id="delete" resultMap="UserResult">
 		DELETE FROM users WHERE id = #{id} ;
 	</select>
 	
@@ -39,4 +50,20 @@
 	<select id="comments" resultMap="PostingResult">
 		SELECT * FROM UserComments ;
 	</select>
+	
+	<select id="getUpdateUser" resultMap="UserResult">
+		SELECT * FROM users WHERE id = #{id} ;
+	</select>
+	
+	<update id="update">
+		UPDATE users SET login_id = #{loginId}, account = #{account}, branch_id = #{branchId}, position_id = #{positionId}, password = #{password} WHERE id = #{id} ;
+	</update>
+	
+	<select id="login" resultMap="UserResult">
+		SELECT * FROM users WHERE login_id = #{loginId} AND password = #{password} ;
+	</select>
+	
+	<update id="status">
+		UPDATE users SET status = #{status} WHERE id = #{id} ;
+	</update>
 </mapper>

@@ -1,5 +1,7 @@
 package jp.co.bbs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,15 @@ public class PostingController {
     public String insert(@ModelAttribute PostingForm form, Model model) {
     	PostingDto dto = new PostingDto();
     	BeanUtils.copyProperties(form, dto);
-        postingService.insert(dto);
-        return "redirect:/home";
+
+    	List<String> messages = postingService.insert(dto);
+    	
+ 
+    	if (messages.size() == 0) {
+    		model.addAttribute("messages", "投稿に成功しました");
+    		return "redirect:/home";
+    	}
+    	model.addAttribute("messages", messages);
+        return "posting";
     }
 }

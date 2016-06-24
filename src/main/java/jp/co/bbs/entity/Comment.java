@@ -1,6 +1,7 @@
 package jp.co.bbs.entity;
 import java.util.Date;
 public class Comment {
+	private Integer id;
 	private Integer postingId;
 	private String body;
 	private Date date;
@@ -35,6 +36,12 @@ public class Comment {
 	}
 	public void setAccount(String account) {
 		this.account = account;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

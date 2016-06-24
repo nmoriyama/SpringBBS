@@ -1,5 +1,6 @@
 package jp.co.bbs.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -9,13 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.co.bbs.dto.CommentDto;
 import jp.co.bbs.form.CommentForm;
 import jp.co.bbs.service.CommentService;
 
 @Controller
-
+@SessionAttributes("messages")
 public class CommentController {
 	
 	@Autowired
@@ -35,10 +37,12 @@ public class CommentController {
     }
     
     
-  /*  @RequestMapping(value = "/commentDelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/commentDelete", method = RequestMethod.POST)
     public String delete(@ModelAttribute CommentForm form, Model model) {
-		commentService.delete(form.getId()
+		List<String> messages = new ArrayList<String>();
+		commentService.delete(form.getCommentId());
+		model.addAttribute("messages", messages);
         return "redirect:/home";
-    }*/
+    }
     
 }

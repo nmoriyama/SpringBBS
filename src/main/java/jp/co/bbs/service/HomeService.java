@@ -17,12 +17,27 @@ public class HomeService {
     private CommentMapper commentMapper;
 	
     public List<PostingDto> getPostings() {
-    	List<PostingDto> PostingList = postingMapper.postings();
-    	return  PostingList;
+    	List<PostingDto> postings = postingMapper.postings();
+    	return  postings;
    }
     
     public List<CommentDto> getComments() {
-    	List<CommentDto> CommentList = commentMapper.comments();
-    	return  CommentList;
+    	List<CommentDto> comments = commentMapper.comments();
+    	return comments;
+   }
+    
+    public List<PostingDto> getDate() {
+    	List<PostingDto> date = postingMapper.getDate();
+    	return date;
+   }
+    
+   public List<PostingDto> getCategory() {
+	   List<PostingDto> date = postingMapper.getCategory();
+	   return date;
+   }
+   
+   public List<PostingDto> search(PostingDto dto) {
+	   List<PostingDto> postings = postingMapper.search(dto);
+	   return postings;
    }
 }

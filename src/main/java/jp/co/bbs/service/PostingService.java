@@ -44,5 +44,11 @@ public class PostingService {
         return messages;
     }
     
-    
+    public List<String> delete(int id) {
+    	List<String> messages = new ArrayList<String>();
+    	postingMapper.delete(id);
+    	messages.add("投稿の削除に成功しました");
+    	return messages;
+    	
+    }
 }

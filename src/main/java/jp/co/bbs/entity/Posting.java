@@ -1,5 +1,7 @@
 package jp.co.bbs.entity;
 
+import java.util.Date;
+
 public class Posting {
 	//本文、カテゴリー、日付、投稿者、
 	private Integer id;
@@ -7,7 +9,9 @@ public class Posting {
     private String category;
     private String account;
     private String subject;
-    private String date;
+    private Date date;
+    private Date firstDate;
+    private Date lastDate;
 	public String getBody() {
 		return body;
 	}
@@ -32,10 +36,10 @@ public class Posting {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public Integer getId() {
@@ -43,5 +47,17 @@ public class Posting {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Date getFirstDate() {
+		return firstDate;
+	}
+	public void setFirstDate(Date firstDate) {
+		this.firstDate = firstDate;
+	}
+	public Date getLastDate() {
+		return lastDate;
+	}
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
 	}
 }

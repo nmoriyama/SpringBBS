@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
@@ -12,11 +12,12 @@
 </head>
 <body>
 <div class = posting-area>
-	<div class = messages >
+	<!--  <div class = messages >
 		<c:forEach items = "${ messages }" var = "message">
-			<c:out value = "${ message }" /><br>
+			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
-	</div>
+	</div> -->
+	<c:out value = "${ messages }" />
  <form:form modelAttribute="PostingForm"  method="post"> 
  <input type = "hidden" name = "userId" value = "${ loginUser.id }">
  <p><label for = "subject">件名(50文字以下)</label>

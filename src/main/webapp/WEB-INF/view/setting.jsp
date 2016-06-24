@@ -15,10 +15,10 @@
 	<h1>${message}</h1>
 	<div class = messages >
 		<c:forEach items = "${ messages }" var = "message">
-			<c:out value = "${ message }" /><br>
+			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
 	</div>
-	<a href = "/SpringBBS/management">戻る</a>
+
 	<form:form modelAttribute="userForm">
 		 ログインID(6文字以上20文字以下)<br>
 		<input name = "loginId"  value = "${ user.loginId }"/><br>
@@ -46,6 +46,7 @@
 		</c:if>
 		<input type="submit">
 	</form:form>
+		<a href = "/SpringBBS/management">戻る</a>
 </div>
 
 </body>

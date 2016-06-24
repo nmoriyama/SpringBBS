@@ -3,7 +3,6 @@ package jp.co.bbs.dto;
 public class UserDto {
 	private Integer id;
 	private String loginId;
-	private String login_id;
 	private String password;
 	private String account;
 	private Integer branchId;
@@ -60,12 +59,6 @@ public class UserDto {
 	}
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
-	}
-	public String getLogin_id() {
-		return login_id;
-	}
-	public void setLogin_id(String login_id) {
-		this.login_id = login_id;
 	}
 	public String getStatus() {
 		return status;

@@ -1,13 +1,17 @@
 package jp.co.bbs.dto;
 
+import java.util.Date;
+
 public class PostingDto {
 	//本文、カテゴリー、日付、投稿者、
 	private Integer id;
     private String body;
     private String category;
+    private String fromDate;
+    private String toDate;
     private String account;
     private String subject;
-    private String date;
+    private Date date;
     private String postingId;
     private Integer userId;
 	public String getBody() {
@@ -34,10 +38,10 @@ public class PostingDto {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public Integer getId() {
@@ -57,5 +61,18 @@ public class PostingDto {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public String getToDate() {
+		return toDate;
+	}
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
 	}
 }

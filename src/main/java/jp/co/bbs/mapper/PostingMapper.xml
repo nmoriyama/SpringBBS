@@ -3,9 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.bbs.mapper.PostingMapper">
     <resultMap id="PostingResult" type="jp.co.bbs.entity.Posting">
-        <result column="body" property="body" />
-        <result column="category" property="category" />
-        <result column="account" property="account" />
+        <result column="record_date" property="date" />
 
     </resultMap>
 
@@ -16,5 +14,21 @@
 	
 	<select id="postings" resultMap="PostingResult">
 		SELECT * FROM UserPostings ;
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM postings WHERE id = #{id} ;
+	</delete>
+	
+	<select id="getDate" resultMap="PostingResult">
+		SELECT MIN(record_date) AS firstDate, MAX(record_date) AS lastDate FROM UserPostings ;
+	</select>
+	
+	<select id="getCategory" resultMap="PostingResult">
+		SELECT category FROM postings ;
+	</select>
+	
+	<select id="search" resultMap="PostingResult">
+		SELECT * FROM UserPostings WHERE #{category} = category ORDER BY record_date DESC ;
 	</select>
 </mapper>

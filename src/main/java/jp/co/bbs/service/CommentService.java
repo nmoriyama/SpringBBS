@@ -26,4 +26,13 @@ public class CommentService {
 		}
 		return messages;
     }
+
+    public List<String> delete(int id) {
+    	List<String> messages = new ArrayList<String>();
+    	commentMapper.delete(id);
+    	messages.add("コメントの削除に成功しました");
+    	return messages;
+    	
+    }
+    
 }

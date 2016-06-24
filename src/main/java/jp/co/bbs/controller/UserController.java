@@ -55,7 +55,7 @@ public class UserController {
         model.addAttribute("userForm", form);
         model.addAttribute("branches", branches);
         model.addAttribute("positions", positions);
-        model.addAttribute("message", "ユーザー登録");
+        model.addAttribute("messages", "ユーザー登録");
         return "signup";
     }
 
@@ -72,7 +72,7 @@ public class UserController {
     @RequestMapping(value = "/management", method = RequestMethod.GET)
     public String testAll(Model model) {
         List<UserDto> users = userService.getTestAll();
-        model.addAttribute("message", "");
+        model.addAttribute("messages", "");
         model.addAttribute("users", users);
         return "management";
     }
@@ -81,7 +81,7 @@ public class UserController {
     @RequestMapping(value = "/management/setting/{id}", method = RequestMethod.GET)
     public String update(Model model, @PathVariable int id) {
     	User user = userService.getUpdateUser(id);
-        model.addAttribute("message", "ユーザー編集");
+        model.addAttribute("messages", "ユーザー編集");
         model.addAttribute("user", user);
         UserForm form = new UserForm();
         List<BranchDto> branches = userService.getBranches();
@@ -107,9 +107,9 @@ public class UserController {
         BeanUtils.copyProperties(form, dto);
         userService.status(dto);
         if (dto.getStatus() == "1") {
-        	model.addAttribute("message", "ユーザーを停止しました");
+        	model.addAttribute("messages", "ユーザーを停止しました");
         } else {
-        	model.addAttribute("message", "ユーザーを利用可能にしました");
+        	model.addAttribute("messages", "ユーザーを利用可能にしました");
         }
         return "redirect:/management";
     }
@@ -118,7 +118,7 @@ public class UserController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@ModelAttribute UserForm form, Model model) {
         userService.delete(form.getId());
-        model.addAttribute("message", "ユーザーを削除しました");
+        model.addAttribute("messages", "ユーザーを削除しました");
         return "redirect:/management";
     }
     

@@ -14,4 +14,8 @@
 	<insert id="comment">
 		INSERT INTO comments (posting_id, body, record_date, user_id) VALUES (#{postingId}, #{body}, CURRENT_TIMESTAMP, #{userId}) ;
 	</insert>
+	
+	<delete id="delete">
+		DELETE FROM comments WHERE id = #{id} ;
+	</delete>
 </mapper>

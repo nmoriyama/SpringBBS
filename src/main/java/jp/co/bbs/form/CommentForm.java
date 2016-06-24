@@ -4,7 +4,7 @@ public class CommentForm {
 	private String body;
 	private Integer userId;
 	private Integer postingId;
-
+	private Integer commentId;
 
 
 	public Integer getUserId() {
@@ -29,6 +29,14 @@ public class CommentForm {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public Integer getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
 	}
 
 

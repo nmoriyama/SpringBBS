@@ -15,6 +15,6 @@ public interface UserMapper {
 	void delete(int id);
 	User getUpdateUser(int id);
 	void update(UserDto dto);
-	
+	User getPassword(UserDto dto);
 	void status(UserDto dto);
 }

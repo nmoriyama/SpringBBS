@@ -16,6 +16,7 @@
 		<c:forEach items = "${ messages }" var = "message">
 			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
+		<c:remove var = "messages" scope = "session" />
 	</div>
 	<form:form modelAttribute="userForm">
 		<p>ログインID

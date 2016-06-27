@@ -10,6 +10,8 @@ public class UserDto {
 	private String status;
 	private String branchName;
 	private String positionName;
+	
+	private String passwordHash;
 	public Integer getId() {
 		return id;
 	}
@@ -65,6 +67,12 @@ public class UserDto {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 }

@@ -8,7 +8,7 @@ public class UserForm {
 	private String account;
 	private Integer branchId;
 	private Integer positionId;
-	private Integer status;
+	private String status;
 	public int getId() {
 		return id;
 	}
@@ -51,10 +51,10 @@ public class UserForm {
 	public void setPositionId(Integer positionId) {
 		this.positionId = positionId;
 	}
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

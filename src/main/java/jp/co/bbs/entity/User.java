@@ -7,7 +7,7 @@ public class User {
     private String branchName;
     private String status;
     private String account;
-    
+    private String password;
 
 	private Integer branchId;
 	private Integer positionId;
@@ -42,7 +42,12 @@ public class User {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getLoginId() {
 		return loginId;
 	}

@@ -26,7 +26,7 @@ public class UserController {
 	
     @Autowired
     private UserService userService;
-    
+
     //ログイン
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
@@ -51,6 +51,7 @@ public class UserController {
     public String insert(Model model) {
         UserForm form = new UserForm();
         List<BranchDto> branches = userService.getBranches();
+
         List<PositionDto> positions = userService.getPositions();
         model.addAttribute("userForm", form);
         model.addAttribute("branches", branches);
@@ -70,8 +71,9 @@ public class UserController {
     
     //ユーザー管理
     @RequestMapping(value = "/management", method = RequestMethod.GET)
-    public String testAll(Model model) {
+    public String testAll(@ModelAttribute("loginUser") User user, Model model) {
         List<UserDto> users = userService.getTestAll();
+      System.out.println(user.getLoginId());
         model.addAttribute("messages", "");
         model.addAttribute("users", users);
         return "management";
@@ -125,7 +127,7 @@ public class UserController {
     //ログアウト
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(Model model) {
-    	model.addAttribute("messages", "ログアウトしました");
+    	model.addAttribute("loginUser", "null");
         return "redirect:/login";
     }
 }

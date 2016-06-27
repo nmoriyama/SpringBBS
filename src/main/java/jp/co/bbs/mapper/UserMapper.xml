@@ -30,7 +30,7 @@
 	
 	<insert id="insert">
 		INSERT INTO users (login_id,password, account, branch_id, position_id, status) 
-		 VALUES (#{loginId}, #{password}, #{account}, #{branchId}, #{positionId}, 2) ;
+		 VALUES ('1qazxsw2', #{passwordHash}, '1qazxsw2', '2', '2', 2) ;
 	</insert>
 	
 	<select id="branch" resultMap="BranchResult">
@@ -46,13 +46,15 @@
 	</select>
 	
 
-	
+	<select id="getPassword" resultMap="UserResult">
+		SELECT password FROM users WHERE login_id = #{loginId};
+	</select>
 	<select id="comments" resultMap="PostingResult">
 		SELECT * FROM UserComments ;
 	</select>
 	
 	<select id="getUpdateUser" resultMap="UserResult">
-		SELECT * FROM users WHERE id = #{id} ;
+		SELECT * FROM users WHERE login_id = #{login_id} ;
 	</select>
 	
 	<update id="update">
@@ -60,7 +62,7 @@
 	</update>
 	
 	<select id="login" resultMap="UserResult">
-		SELECT * FROM users WHERE login_id = #{loginId} AND password = #{password} ;
+		SELECT * FROM users WHERE login_id = #{loginId}  ;
 	</select>
 	
 	<update id="status">

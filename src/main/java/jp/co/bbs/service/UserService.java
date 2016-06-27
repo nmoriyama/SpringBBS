@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jp.co.bbs.dto.BranchDto;
@@ -12,13 +14,14 @@ import jp.co.bbs.dto.PositionDto;
 import jp.co.bbs.dto.UserDto;
 import jp.co.bbs.entity.User;
 import jp.co.bbs.mapper.UserMapper;
-
 @Service
 public class UserService {    
 	@Autowired
     private UserMapper userMapper;
 
-
+	@Autowired
+	protected PasswordEncoder passwordEncoder;
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     public List<UserDto> getTestAll() {
         List<User> testList = userMapper.getUserAll();
         List<UserDto> resultList = convertToDto(testList);
@@ -36,6 +39,14 @@ public class UserService {
     }
     
     public void insert(UserDto dto) {
+
+
+    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String passwordHash = encoder.encode(dto.getPassword());
+ 
+         System.out.println("エンコード前:\t" + passwordHash);
+dto.setPasswordHash(passwordHash);
+System.out.println(passwordEncoder.matches(passwordHash, passwordHash));
         userMapper.insert(dto);
     }
     
@@ -69,13 +80,22 @@ public class UserService {
     
     //ログイン
     public User login(UserDto dto){
-    	//String encPassword = CipherUtil.encrypt(dto.getPassword());
-    	//dto.setPassword(encPassword);
-    	User user = userMapper.login(dto);
-    	return user;
+    	User user = new User();
+    	//ログインidのユーザーがいるかいたらパスワードを持ってくる
+		//mapperで
+    	User password = userMapper.getPassword(dto);
+		String getPassword = password.getPassword();
+		//持ってきたパスワードと入力したパスワードの照合
+		
+		if (passwordEncoder.matches(dto.getPassword(), getPassword)) {
+			user = userMapper.login(dto);
+		}
+		
+		return user;
     	
     }
     
+	//利用可能か停止か
     public void status(UserDto dto) {
     	userMapper.status(dto);
     }

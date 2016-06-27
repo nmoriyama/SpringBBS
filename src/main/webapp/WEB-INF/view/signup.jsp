@@ -11,11 +11,14 @@
 </head>
 <body>
 <div class=signup-area>
+<h1>${message}</h1>
 	<div class = messages >
 		<c:forEach items = "${ messages }" var = "message">
 			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
+		<c:remove var = "messages" scope = "session" />
 	</div>
+</div>
 
     <form:form modelAttribute="userForm">
         <p><label for = "loginId">ログインID(6文字以上20文字以下)<br></label>

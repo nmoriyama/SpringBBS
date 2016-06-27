@@ -18,6 +18,7 @@
 		<c:forEach items = "${ messages }" var = "message">
 			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
+		<c:remove var = "messages" scope = "session" />
 	</div>
 	<form:form action="search" method="get">
 		<c:forEach items = "${ date }" var = "date">
@@ -77,9 +78,10 @@
 		<input type = "submit" value = "検索">
 	</form:form>
 	<a href = "posting">新規投稿</a>
-	<a href = "management">ユーザー管理</a>
+	<c:if test = "${ loginUser.positionId == 1 }">
+		<a href = "management">ユーザー管理</a>
+	</c:if>
 	<a href = "logout">ログアウト</a>
-	<br><c:out value = "${ loginUser.positionId }" />がログイン中
 	<c:forEach items = "${ postings }" var = "posting">
 	<div Align = "left" class = "body-area">
 		<div style="border-style: double  ; border-width: 3px;" align="center">
@@ -102,7 +104,7 @@
 				</c:forEach>
 			</div>
 			<form:form action="postingDelete" method="post">
-						<input type = "hidden" name = "id" value = "${ posting.id }">
+				<input type = "hidden" name = "id" value = "${ posting.id }">
 				<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
 					<input type = "submit" value = "削除">
 				</c:if>
@@ -114,34 +116,35 @@
 		</div>
 		<br>
 	<div Align = "right" class = "comment-area">
-		<div style="border-style: solid ; border-width: 1px;" align="right">
+		<div class = "comment-box">
 			<c:forEach items = "${ comments }" var = "comment">
 				<c:choose>
 					<c:when test = "${ comment.postingId == posting.id }">
 						<div Align = "left">
 							名前:<c:out value = "${ comment.account }" />
-							&nbsp; コメント<br>
+							<br>
 							<c:forEach items = "${ fn: split(comment.body, '<br>') }" var = "body">
 								<div class = "comments">
-								&nbsp;<c:out value = "${ comment.body }" /><br>
+								&nbsp;&nbsp;&nbsp;<c:out value = "${ comment.body }" /><br>
 								</div>
 							</c:forEach>
 						</div>
 						<form:form action="commentDelete" method="post">
 						<input type = "hidden" name = "commentId" value = "${ comment.id }">
-						<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
+							<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
 								<input type = "submit" value = "削除">
 							</c:if>
 							<c:if test = "${ loginUser.positionId == 2 }">
 								<input type = "submit" value = "削除">
 							</c:if>
-							</form:form>
+						</form:form>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 		</div>	
 		<form:form action="comment" method="post">
-<div Align = "left">コメント(500文字以下)</div><input type = "hidden" name = postingId value = "${ posting.id }">
+			<div Align = "left">コメント(500文字以下)</div>
+				<input type = "hidden" name = postingId value = "${ posting.id }">
 				<input type = "hidden" name = userId value = "${ loginUser.id }">
 				<textarea name = "body" class = "comment-box"></textarea>
 				<br><div Align = "left" class = "comment-area"><input type = "submit" value = "コメント"></div>

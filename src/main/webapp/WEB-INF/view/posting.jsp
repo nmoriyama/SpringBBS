@@ -17,7 +17,14 @@
 			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
 	</div> -->
-	<c:out value = "${ messages }" />
+<h1>${message}</h1>
+	<div class = messages >
+		<c:forEach items = "${ messages }" var = "message">
+			<p><c:out value = "${ message }" /><br></p>
+		</c:forEach>
+		<c:remove var = "messages" scope = "session" />
+	</div>
+</div>
  <form:form modelAttribute="PostingForm"  method="post"> 
  <input type = "hidden" name = "userId" value = "${ loginUser.id }">
  <p><label for = "subject">件名(50文字以下)</label>

@@ -11,6 +11,7 @@
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 </head>
 <body>
+
 <div class = posting-area>
 	<!--  <div class = messages >
 		<c:forEach items = "${ messages }" var = "message">
@@ -25,6 +26,8 @@
 		<c:remove var = "messages" scope = "session" />
 	</div>
 </div>
+
+<div align="center">
  <form:form modelAttribute="PostingForm"  method="post"> 
  <input type = "hidden" name = "userId" value = "${ loginUser.id }">
  <p><label for = "subject">件名(50文字以下)</label>
@@ -46,7 +49,7 @@
 	</p>
  </form:form>
  <a href = "home">戻る</a>
- </div>
+</div>
 </body>
 
 </html>

@@ -6,7 +6,6 @@ public class CommentForm {
 	private Integer postingId;
 	private Integer commentId;
 
-
 	public Integer getUserId() {
 		return userId;
 	}

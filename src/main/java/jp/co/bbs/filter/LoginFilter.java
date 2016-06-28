@@ -10,18 +10,16 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.co.bbs.entity.User;
 
-@WebFilter(urlPatterns = {"/home", "/management", "/setting", "/signup", "/posting"})
+//@WebFilter(urlPatterns = {"/home", "/management", "/setting", "/signup", "/posting"})
 
 public class LoginFilter implements Filter {
  
-   
     public void init(FilterConfig config) throws ServletException {
     }
  
@@ -32,8 +30,10 @@ public class LoginFilter implements Filter {
 		List<String> messages = new ArrayList<String>();
 
 		User user = (User) ((HttpServletRequest) req).getSession().getAttribute("loginUser");
-
-		if (user == null) {
+		
+		String check = user.getAccount();
+		
+		if (check == null) {
 			messages.add("ログインできません");
 			session.setAttribute("messages", messages);
 			((HttpServletResponse) res).sendRedirect("login");

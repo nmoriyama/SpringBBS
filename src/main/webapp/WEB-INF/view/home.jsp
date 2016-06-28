@@ -83,31 +83,27 @@
 	</c:if>
 	<a href = "logout">ログアウト</a>
 	<c:forEach items = "${ postings }" var = "posting">
-	<div Align = "left" class = "body-area">
-		<div style="border-style: double  ; border-width: 3px;" align="center">
+	
+		<div style="width: 50%; Align = left; border-style: double  ; border-width: 3px;">
+		<div class = "body-area">
+			カテゴリー:<c:out value = "${ posting.category }" />
+			&nbsp; 投稿者:<c:out value = "${ posting.account }" />
 			
-				カテゴリー:
-				<c:out value = "${ posting.category }" />
-				&nbsp; 投稿者:
-				<c:out value = "${ posting.account }" />
-				&nbsp; 件名:
-				<c:out value = "${ posting.subject }" />
 	
 			<div Align = "left">
 				日付:<fmt:formatDate value = "${ posting.date }" pattern = "yyyy年MM月dd日 HH時mm分" />
 			</div>
 			<br>
-			<div Align = "left" class = big-text>本文<br>
+			件名:<c:out value = "${ posting.subject }" /><br>
 				<c:forEach items = "${ fn: split(posting.body,'<br>') }" var = "body">
 					&nbsp;<c:out value = "${body}" />
 					<br>
 				</c:forEach>
-			</div>
 			<form:form action="postingDelete" method="post">
 				<input type = "hidden" name = "id" value = "${ posting.id }">
-				<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
-					<input type = "submit" value = "削除">
-				</c:if>
+					<c:if test = "${ loginUser.branchId !=  1 && loginUser.positionId == 3 && loginUser.branchId == comment.branchId }">
+						<input type = "submit" value = "削除">
+					</c:if>
 				<c:if test = "${ loginUser.positionId == 2 }">
 					<input type = "submit" value = "削除">
 				</c:if>
@@ -148,8 +144,7 @@
 				<input type = "hidden" name = userId value = "${ loginUser.id }">
 				<textarea name = "body" class = "comment-box"></textarea>
 				<br><div Align = "left" class = "comment-area"><input type = "submit" value = "コメント"></div>
-			
-			</form:form><br>
+		</form:form><br>
 			</div>
 	</c:forEach>
 	<div class = "copyright">Copyright(c)Moriyama Naoki</div>

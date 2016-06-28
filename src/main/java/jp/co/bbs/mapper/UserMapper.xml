@@ -24,13 +24,13 @@
     
     
     
-    <select id="getUserAll" resultMap="UserResult">
+    <select id="getAllUsers" resultMap="UserResult">
 		SELECT * FROM management ;
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO users (login_id,password, account, branch_id, position_id, status) 
-		 VALUES ('1qazxsw2', #{passwordHash}, '1qazxsw2', '2', '2', 2) ;
+		INSERT INTO users (login_id, password, account, branch_id, position_id, status) 
+		 VALUES (#{loginId}, #{passwordHash}, #{account}, #{branchId}, #{positionId}, '2') ;
 	</insert>
 	
 	<select id="branch" resultMap="BranchResult">
@@ -42,7 +42,10 @@
 	</select>
 	
 	<select id="delete" resultMap="UserResult">
-		DELETE FROM users WHERE id = #{id} ;
+		DELETE users, postings, comments 
+		 FROM users LEFT JOIN postings ON users.id = postings.user_id
+		 LEFT JOIN comments ON postings.user_id = comments.user_id 
+		 WHERE users.id = #{id} ;
 	</select>
 	
 

@@ -31,4 +31,5 @@
 	<select id="search" resultMap="PostingResult">
 		SELECT * FROM UserPostings WHERE #{category} = category ORDER BY record_date DESC ;
 	</select>
+	
 </mapper>

@@ -26,7 +26,6 @@ public class PostingController {
     @RequestMapping(value = "/posting", method = RequestMethod.GET)
     public String posting(Model model) {
         PostingForm form = new PostingForm();
-        model.addAttribute("messages", "投稿");
         model.addAttribute("postingForm", form);
         return "posting";
     }
@@ -37,8 +36,7 @@ public class PostingController {
     	BeanUtils.copyProperties(form, dto);
 
     	List<String> messages = postingService.insert(dto);
-    	
- 
+
     	if (messages.size() == 0) {
     		model.addAttribute("messages", "投稿に成功しました");
     		return "redirect:/home";

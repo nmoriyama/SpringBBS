@@ -24,7 +24,7 @@
 		
 		<p>パスワード
 		<input name = "password" type = "password"  /><br></p>
-		<input type="submit">
+		<input type="submit" value = "ログイン">
 	</form:form>
 </div>
 </body>

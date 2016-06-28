@@ -5,13 +5,15 @@ import java.util.Date;
 public class Posting {
 	//本文、カテゴリー、日付、投稿者、
 	private Integer id;
+    private String subject;
     private String body;
     private String category;
-    private String account;
-    private String subject;
     private Date date;
     private Date firstDate;
     private Date lastDate;
+    private String account;
+
+
 	public String getBody() {
 		return body;
 	}

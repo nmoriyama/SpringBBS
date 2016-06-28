@@ -7,14 +7,22 @@ import jp.co.bbs.dto.UserDto;
 import jp.co.bbs.entity.User;
 
 public interface UserMapper {
+	//ログイン
+	User getPassword(UserDto dto);
 	User login(UserDto dto);
-	List<User> getUserAll();
+	//ユーザー管理
+	List<UserDto> getAllUsers();
+	//支店名
+		List<BranchDto> branch();
+	//役職
+		List<PositionDto> position();
+	//ユーザー登録
 	void insert(UserDto dto);
-	List<BranchDto> branch();
-	List<PositionDto> position();
-	void delete(int id);
+	//ユーザー編集
 	User getUpdateUser(int id);
 	void update(UserDto dto);
-	User getPassword(UserDto dto);
+	//利用可能か停止か
 	void status(UserDto dto);
+	//ユーザー削除
+	void delete(int id);
 }

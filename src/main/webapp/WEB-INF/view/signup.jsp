@@ -16,10 +16,10 @@
 		<c:forEach items = "${ messages }" var = "message">
 			<p><c:out value = "${ message }" /><br></p>
 		</c:forEach>
-		<c:remove var = "messages" scope = "session" />
+		<c:remove var = "messages" />
 	</div>
 </div>
-
+<div align="center">
     <form:form modelAttribute="userForm">
         <p><label for = "loginId">ログインID(6文字以上20文字以下)<br></label>
 		<input name =  "loginId" /> <br> </p>
@@ -47,9 +47,9 @@
 				<c:out value = "${ position.name }" /></option>
 			</c:forEach>
 		</select></p>
-	<input type="submit">
+	<input type="submit" value = "登録">
 	</form:form>
 	    <a href = "management">戻る</a>
-	    </div>
+</div>
 </body>
 </html>

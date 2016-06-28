@@ -1,9 +1,8 @@
 package jp.co.bbs.service;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,35 +18,45 @@ public class UserService {
 	@Autowired
     private UserMapper userMapper;
 
+	//パスワードの暗号化
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    public List<UserDto> getTestAll() {
-        List<User> testList = userMapper.getUserAll();
-        List<UserDto> resultList = convertToDto(testList);
-        return resultList;
-    }
-
-    private List<UserDto> convertToDto(List<User> testList) {
-        List<UserDto> resultList = new LinkedList<UserDto>();
-        for (User entity : testList) {
-        	UserDto dto = new UserDto();
-            BeanUtils.copyProperties(entity, dto);
-            resultList.add(dto);
-        }
-        return resultList;
+	
+	List<String> messages = new ArrayList<String>();
+    //ログイン
+	public List<String> loginCheck(UserDto dto){
+		
+		if (dto.getLoginId().isEmpty()){
+			messages.add("ログインIDが入力されていません");
+		}
+		if (dto.getPassword().isEmpty()){
+			messages.add("パスワードが入力されていません");
+		}
+		if (!dto.getLoginId().isEmpty() && !dto.getPassword().isEmpty()) {
+			User password = userMapper.getPassword(dto);
+			if (password == null) {
+				messages.add("ログインできません");
+			}
+		}
+		return messages;
+	}
+    public User login(UserDto dto){
+    	User user = new User();
+    	//ログインidのユーザーがいるかいたらパスワードを持ってくる
+    	User password = userMapper.getPassword(dto);
+		String getPassword = password.getPassword();
+		//持ってきたパスワードと入力したパスワードの照合
+		if (passwordEncoder.matches(dto.getPassword(), getPassword)) {
+			user = userMapper.login(dto);
+		}
+		return user;	
     }
     
-    public void insert(UserDto dto) {
-
-
-    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String passwordHash = encoder.encode(dto.getPassword());
- 
-         System.out.println("エンコード前:\t" + passwordHash);
-dto.setPasswordHash(passwordHash);
-System.out.println(passwordEncoder.matches(passwordHash, passwordHash));
-        userMapper.insert(dto);
+	//ユーザー管理
+    public List<UserDto> getAllUsers() {
+        List<UserDto> userList = userMapper.getAllUsers();
+        return userList;
     }
     
     //支店名
@@ -60,11 +69,43 @@ System.out.println(passwordEncoder.matches(passwordHash, passwordHash));
     public List<PositionDto> getPositions() {
     	List<PositionDto> positionList = userMapper.position();
     	return  positionList;
-   }
+    }
     
-    //ユーザー削除
-    public void delete(int id) {
-        userMapper.delete(id);
+    //ユーザー登録
+    public List<String> insert(UserDto dto) {
+    	
+    	if (dto.getLoginId().isEmpty()){
+			messages.add("ログインIDが入力されていません");
+		} else if (dto.getLoginId().length() < 6 || dto.getLoginId().length() > 20) {
+			messages.add("ログインIDは6文字以上20文字以下にして下さい");
+		}
+		if (dto.getPassword().isEmpty()){
+			messages.add("パスワードが入力されていません");
+		} else if (dto.getPassword().length() < 6 || dto.getPassword().length() > 255) {
+			messages.add("パスワードは6文字以上255文字以下にして下さい");
+		}
+		if (!dto.getPassword().equals(dto.getCheckPassword())) {
+			messages.add("パスワードが一致しません");
+		}
+		if (dto.getAccount().isEmpty() == true) {
+			messages.add("アカウント名を入力してください");
+		} else if (dto.getAccount().length() > 10) {
+			messages.add("アカウント名は10文字以下にして下さい");
+		}
+		if (dto.getBranchId() != 1 && dto.getPositionId() <= 2) {
+			messages.add("支店の人は、店長もしくは社員としか登録できません");
+		}
+		
+		if (dto.getBranchId() == 1 && dto.getPositionId() == 3) {
+			messages.add("本社の人は、店長として登録できません");
+		}
+		if (messages.size() == 0) {
+			String passwordHash = encoder.encode(dto.getPassword());
+			dto.setPasswordHash(passwordHash);
+			userMapper.insert(dto);
+			
+		}
+		return messages;
     }
     
     //ユーザー編集
@@ -73,30 +114,28 @@ System.out.println(passwordEncoder.matches(passwordHash, passwordHash));
 		return user;
     }
     
+    //ユーザー編集
     public void update(UserDto dto) {
     	
     	userMapper.update(dto);
     }
     
-    //ログイン
-    public User login(UserDto dto){
-    	User user = new User();
-    	//ログインidのユーザーがいるかいたらパスワードを持ってくる
-		//mapperで
-    	User password = userMapper.getPassword(dto);
-		String getPassword = password.getPassword();
-		//持ってきたパスワードと入力したパスワードの照合
-		
-		if (passwordEncoder.matches(dto.getPassword(), getPassword)) {
-			user = userMapper.login(dto);
-		}
-		
-		return user;
+	//利用可能か停止か
+    public List<String> status(UserDto dto) {
+    	userMapper.status(dto);
+    	if (dto.getStatus() == "1") {
+    		messages.add("ユーザーを停止しました");
+        } else {
+        	messages.add("ユーザーを利用可能にしました");
+        }
+    	return messages;
     	
     }
     
-	//利用可能か停止か
-    public void status(UserDto dto) {
-    	userMapper.status(dto);
+    //ユーザー削除
+    public List<String> delete(int id) {
+    	userMapper.delete(id);
+    	messages.add("ユーザーを削除しました");
+        return messages;
     }
 }

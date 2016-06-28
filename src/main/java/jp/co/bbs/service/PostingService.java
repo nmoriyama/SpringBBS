@@ -12,6 +12,7 @@ import jp.co.bbs.mapper.PostingMapper;
 public class PostingService {
 	@Autowired
     private PostingMapper postingMapper;
+	//投稿
     public List<String> insert(PostingDto dto) {
     	List<String> messages = new ArrayList<String>();
     	if (dto.getSubject().length() == 0) {
@@ -20,7 +21,7 @@ public class PostingService {
 		
 		if (50 < dto.getSubject().length()) {
 			messages.add("件名は50文字以下で入力してください");
-		}
+		} 
 		
 		if (dto.getCategory().length() == 0) {
 			messages.add("カテゴリーを入力してください");
@@ -44,6 +45,7 @@ public class PostingService {
         return messages;
     }
     
+    //削除
     public List<String> delete(int id) {
     	List<String> messages = new ArrayList<String>();
     	postingMapper.delete(id);

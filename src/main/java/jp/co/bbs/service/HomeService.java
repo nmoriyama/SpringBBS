@@ -1,5 +1,6 @@
 package jp.co.bbs.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,9 @@ public class HomeService {
    }
    
    public List<PostingDto> search(PostingDto dto) {
-	   List<PostingDto> postings = postingMapper.search(dto);
+	   List<PostingDto> postings = new ArrayList<PostingDto>();
+	   postings = postingMapper.search(dto);
+	   
 	   return postings;
    }
 }

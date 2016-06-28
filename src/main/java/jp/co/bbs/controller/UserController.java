@@ -40,45 +40,53 @@ public class UserController {
     public String login(@ModelAttribute UserForm form, Model model) {
     	UserDto dto = new UserDto();
     	BeanUtils.copyProperties(form, dto);
+    	List<String> messages = userService.loginCheck(dto);
+    	if (messages.size() != 0) {
+    		model.addAttribute("messages", messages);
+    		return "login";
+    	}
     	User loginUser = userService.login(dto);
-
         model.addAttribute("loginUser", loginUser);
         return "redirect:/home";
     }
     
+    //ユーザー管理
+    @RequestMapping(value = "/management", method = RequestMethod.GET)
+    public String AllUsers(@ModelAttribute("loginUser") User user, Model model) {
+        List<UserDto> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "management";
+    }
+    
     //ユーザー登録
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String insert(@ModelAttribute UserForm form, Model model) {
+    	UserDto dto = new UserDto();
+    	BeanUtils.copyProperties(form, dto);
+    	List<String> messages = userService.insert(dto);
+    	model.addAttribute("messages", messages);
+    	if (messages.size() == 0) {
+    		return "redirect:/management";
+    	}
+    	//modelAttribute="checkForm";
+    	return "signup";
+    }
+    
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String insert(Model model) {
         UserForm form = new UserForm();
         List<BranchDto> branches = userService.getBranches();
 
         List<PositionDto> positions = userService.getPositions();
+        //model.addAttribute("messages", messages);
         model.addAttribute("userForm", form);
         model.addAttribute("branches", branches);
         model.addAttribute("positions", positions);
-        model.addAttribute("messages", "ユーザー登録");
         return "signup";
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String insert(@ModelAttribute UserForm form, Model model) {
-    	UserDto dto = new UserDto();
-    	BeanUtils.copyProperties(form, dto);
-        userService.insert(dto);
-        
-        return "redirect:/management";
-    }
-    
-    //ユーザー管理
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
-    public String testAll(@ModelAttribute("loginUser") User user, Model model) {
-        List<UserDto> users = userService.getTestAll();
-      System.out.println(user.getLoginId());
-        model.addAttribute("messages", "");
-        model.addAttribute("users", users);
-        return "management";
-    }
 
+    
     //ユーザー編集
     @RequestMapping(value = "/management/setting/{id}", method = RequestMethod.GET)
     public String update(Model model, @PathVariable int id) {
@@ -107,20 +115,16 @@ public class UserController {
     public String status(@ModelAttribute UserForm form, Model model) {
         UserDto dto = new UserDto();
         BeanUtils.copyProperties(form, dto);
-        userService.status(dto);
-        if (dto.getStatus() == "1") {
-        	model.addAttribute("messages", "ユーザーを停止しました");
-        } else {
-        	model.addAttribute("messages", "ユーザーを利用可能にしました");
-        }
+        List<String> messages = userService.status(dto);
+        model.addAttribute("messages", messages);
         return "redirect:/management";
     }
     
     //ユーザー削除
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@ModelAttribute UserForm form, Model model) {
-        userService.delete(form.getId());
-        model.addAttribute("messages", "ユーザーを削除しました");
+        List<String> messages = userService.delete(form.getId());
+        model.addAttribute("messages", messages);
         return "redirect:/management";
     }
     

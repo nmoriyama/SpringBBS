@@ -4,6 +4,7 @@ public class UserDto {
 	private Integer id;
 	private String loginId;
 	private String password;
+	private String checkPassword;
 	private String account;
 	private Integer branchId;
 	private Integer positionId;
@@ -73,6 +74,12 @@ public class UserDto {
 	}
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
+	}
+	public String getCheckPassword() {
+		return checkPassword;
+	}
+	public void setCheckPassword(String checkPassword) {
+		this.checkPassword = checkPassword;
 	}
 
 }

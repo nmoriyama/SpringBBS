@@ -46,10 +46,10 @@
 			</c:forEach>
 		</select></p>
 		</c:if>
-		<input type="submit">
+		<input type="submit" value = "変更">
 	</form:form>
 		<a href = "/SpringBBS/management">戻る</a>
-</div>
+
 
 </body>
 </html>
